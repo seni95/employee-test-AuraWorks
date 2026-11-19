@@ -1,23 +1,70 @@
-import { MOCK_PRODUCTS } from "@/data/mock-products";
+import { getSupabaseBrowserClient } from "@/lib/supabase";
 import {
   PAGE_SIZE,
+  PRODUCT_TYPES,
   type Product,
+  type ProductCoverVariant,
   type ProductListResult,
   type ProductQuery,
+  type ProductType,
+  type TextbookRow,
 } from "@/types/product";
 
-/**
- * 상품 목록을 조회합니다.
- * 현재는 목 데이터를 반환하며, 이후 Supabase CSR 조회로 교체할 수 있습니다.
- *
- * @example
- * // 이후 교체 예시
- * // const { data, error } = await supabase.from("products").select("*");
- * // if (error) throw error;
- * // return data;
- */
+function isProductType(value: string): value is ProductType {
+  return (PRODUCT_TYPES as readonly string[]).includes(value);
+}
+
+function coverVariantForType(type: ProductType): ProductCoverVariant {
+  return type === "pass" ? "pass-set" : "single-green";
+}
+
+function discountRate(originalPrice: number, salePrice: number): number {
+  if (originalPrice <= salePrice) {
+    return 0;
+  }
+
+  return Math.round(((originalPrice - salePrice) / originalPrice) * 100);
+}
+
+export function mapTextbookToProduct(row: TextbookRow): Product | null {
+  if (!isProductType(row.category)) {
+    return null;
+  }
+
+  const salePrice = row.price;
+  const originalPrice = row.original_price ?? row.price;
+
+  return {
+    id: String(row.id),
+    name: row.title,
+    type: row.category,
+    originalPrice,
+    salePrice,
+    discountRate: discountRate(originalPrice, salePrice),
+    imageUrl: row.image_url,
+    coverVariant: coverVariantForType(row.category),
+  };
+}
+
 export async function fetchProducts(): Promise<Product[]> {
-  return MOCK_PRODUCTS;
+  const supabase = getSupabaseBrowserClient();
+  const { data, error } = await supabase
+    .from("textbooks")
+    .select("id, title, category, price, original_price, image_url, created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  if (!data) {
+    return [];
+  }
+
+  return data.flatMap((row: TextbookRow) => {
+    const product = mapTextbookToProduct(row);
+    return product ? [product] : [];
+  });
 }
 
 export function queryProducts(

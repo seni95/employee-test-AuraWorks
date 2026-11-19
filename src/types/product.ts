@@ -11,6 +11,16 @@ export const PRODUCT_COVER_VARIANTS = [
 ] as const;
 export type ProductCoverVariant = (typeof PRODUCT_COVER_VARIANTS)[number];
 
+export interface TextbookRow {
+  id: number | string;
+  title: string;
+  category: string;
+  price: number;
+  original_price: number | null;
+  image_url: string | null;
+  created_at: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -18,6 +28,7 @@ export interface Product {
   originalPrice: number;
   salePrice: number;
   discountRate: number;
+  imageUrl: string | null;
   coverVariant: ProductCoverVariant;
 }
 

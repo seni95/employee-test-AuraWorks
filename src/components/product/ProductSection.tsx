@@ -48,8 +48,12 @@ export function ProductSection() {
         {isLoading ? (
           <ProductGridSkeleton />
         ) : error ? (
-          <p className="py-20 text-center text-sm text-[#888]" role="alert">
-            {error}
+          <p className="py-20 text-center text-sm text-[#c23d2a]" role="alert">
+            상품을 불러오지 못했습니다. {error}
+          </p>
+        ) : products.length === 0 ? (
+          <p className="py-20 text-center text-sm text-[#888]">
+            등록된 상품이 없습니다.
           </p>
         ) : result.total === 0 ? (
           <p className="py-20 text-center text-sm text-[#888]">

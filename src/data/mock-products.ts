@@ -33,6 +33,7 @@ function createProduct(seed: ProductSeed): Product {
     originalPrice: seed.originalPrice ?? defaults.originalPrice,
     salePrice: seed.salePrice ?? defaults.salePrice,
     discountRate: seed.discountRate ?? defaults.discountRate,
+    imageUrl: null,
   };
 }
 

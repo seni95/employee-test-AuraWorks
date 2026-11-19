@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { formatPrice } from "@/lib/format";
 import { PRODUCT_TYPE_LABEL, type Product } from "@/types/product";
 import { ProductCover } from "@/components/product/ProductCover";
@@ -13,8 +14,18 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <article className="flex flex-col">
       <div className="overflow-hidden rounded-[10px] border border-[#ececec] bg-[#f7f7f7]">
-        <div className="aspect-square">
-          <ProductCover variant={product.coverVariant} name={product.name} />
+        <div className="relative aspect-square">
+          {product.imageUrl ? (
+            <Image
+              src={product.imageUrl}
+              alt={product.name}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 272px"
+              className="object-contain p-6"
+            />
+          ) : (
+            <ProductCover variant={product.coverVariant} name={product.name} />
+          )}
         </div>
       </div>
 

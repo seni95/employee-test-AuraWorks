@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { formatPrice } from "@/lib/format";
-import { PRODUCT_TYPE_LABEL, type Product } from "@/types/product";
-import { ProductCover } from "@/components/product/ProductCover";
+import { PRODUCT_TYPE_LABEL, type Product } from "../_types/product";
+import { ProductCover } from "./ProductCover";
 
 interface ProductCardProps {
   product: Product;

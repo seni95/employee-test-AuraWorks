@@ -2,7 +2,7 @@ import {
   PRODUCT_FILTER_LABEL,
   PRODUCT_FILTERS,
   type ProductFilter,
-} from "@/types/product";
+} from "../_types/product";
 
 interface ProductToolbarProps {
   search: string;

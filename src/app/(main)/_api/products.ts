@@ -8,7 +8,7 @@ import {
   type ProductQuery,
   type ProductType,
   type TextbookRow,
-} from "@/types/product";
+} from "../_types/product";
 
 function isProductType(value: string): value is ProductType {
   return (PRODUCT_TYPES as readonly string[]).includes(value);

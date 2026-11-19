@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchProducts } from "@/lib/products";
-import type { Product } from "@/types/product";
+import { fetchProducts } from "../_api/products";
+import type { Product } from "../_types/product";
 
 interface UseProductsResult {
   products: Product[];

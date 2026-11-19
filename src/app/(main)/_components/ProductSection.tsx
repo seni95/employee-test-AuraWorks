@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useProducts } from "@/hooks/use-products";
-import { queryProducts } from "@/lib/products";
-import { Pagination } from "@/components/pagination/Pagination";
-import { ProductGrid } from "@/components/product/ProductGrid";
-import { ProductToolbar } from "@/components/product/ProductToolbar";
-import { PAGE_SIZE, type ProductFilter } from "@/types/product";
+import { queryProducts } from "../_api/products";
+import { useProducts } from "../_hooks/use-products";
+import { PAGE_SIZE, type ProductFilter } from "../_types/product";
+import { Pagination } from "./Pagination";
+import { ProductGrid } from "./ProductGrid";
+import { ProductToolbar } from "./ProductToolbar";
 
 export function ProductSection() {
   const { products, isLoading, error } = useProducts();

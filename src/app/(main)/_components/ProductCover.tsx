@@ -1,4 +1,4 @@
-import type { ProductCoverVariant } from "@/types/product";
+import type { ProductCoverVariant } from "../_types/product";
 
 const SET_COVERS = [
   { background: "#7ec8e3", accent: "#1f4d63" },

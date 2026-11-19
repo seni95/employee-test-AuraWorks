@@ -2,20 +2,23 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #1a1a1a;
-  --accent: #e45c2d;
+  --foreground: #1c1e21;
+  --accent: #7f77dd;
+  --discount: #fa622f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
-  --font-sans: var(--font-noto-sans-kr);
+  --color-discount: var(--discount);
+  --font-sans: "Pretendard Variable", Pretendard, var(--font-noto-sans-kr), sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: "Pretendard Variable", Pretendard, var(--font-noto-sans-kr), sans-serif;
 }
 
 input[type="search"]::-webkit-search-cancel-button {

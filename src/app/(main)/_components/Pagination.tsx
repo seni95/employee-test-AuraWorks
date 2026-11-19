@@ -1,3 +1,5 @@
+import { ICON_CHEVRON_LEFT, ICON_CHEVRON_RIGHT } from "@/lib/assets";
+
 interface PaginationProps {
   page: number;
   totalPages: number;
@@ -10,13 +12,13 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
   const isLastPage = page >= totalPages;
 
   return (
-    <nav aria-label="상품 페이지" className="mt-12 flex items-center justify-center gap-2">
+    <nav aria-label="상품 페이지" className="flex items-center justify-center gap-2">
       <PaginationButton
         label="이전 페이지"
         disabled={isFirstPage}
         onClick={() => onPageChange(page - 1)}
       >
-        <ChevronLeft />
+        <img src={ICON_CHEVRON_LEFT} alt="" width={20} height={20} />
       </PaginationButton>
 
       {pages.map((pageNumber) => {
@@ -29,10 +31,10 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
             onClick={() => onPageChange(pageNumber)}
             aria-label={`${pageNumber}페이지`}
             aria-current={current ? "page" : undefined}
-            className={`flex h-9 w-9 items-center justify-center rounded-md text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e45c2d] ${
+            className={`flex size-10 items-center justify-center rounded-[6px] text-[14px] leading-[1.5] font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7f77dd] ${
               current
-                ? "bg-[#e45c2d] font-medium text-white"
-                : "border border-[#e5e5e5] bg-white text-[#666] hover:border-[#cfcfcf]"
+                ? "bg-[#7f77dd] text-white"
+                : "border border-[#7f77dd] bg-white text-[#7f77dd]"
             }`}
           >
             {pageNumber}
@@ -45,7 +47,7 @@ export function Pagination({ page, totalPages, onPageChange }: PaginationProps) 
         disabled={isLastPage}
         onClick={() => onPageChange(page + 1)}
       >
-        <ChevronRight />
+        <img src={ICON_CHEVRON_RIGHT} alt="" width={20} height={20} />
       </PaginationButton>
     </nav>
   );
@@ -68,37 +70,9 @@ function PaginationButton({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="flex h-9 w-9 items-center justify-center rounded-md border border-[#e5e5e5] bg-white text-[#666] transition-colors hover:border-[#cfcfcf] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e45c2d] disabled:cursor-not-allowed disabled:opacity-40"
+      className="flex size-10 items-center justify-center rounded-[6px] border border-[#7f77dd] bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7f77dd] disabled:cursor-not-allowed disabled:opacity-40"
     >
       {children}
     </button>
-  );
-}
-
-function ChevronLeft() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M14.5 6 8.5 12l6 6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ChevronRight() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="m9.5 6 6 6-6 6"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
   );
 }

@@ -1,139 +1,89 @@
-import Image from "next/image";
-import Link from "next/link";
-import { LOGO_IMAGE } from "@/lib/assets";
+import { ICON_BELL, ICON_CART, ICON_USER, LOGO_IMAGE } from "@/lib/assets";
 
 const NAV_ITEMS = [
-  { href: "/", label: "스토어", current: true },
-  { href: "#ai-omr-work", label: "AI OMR WORK", current: false },
-  { href: "#challenge", label: "챌린지", current: false },
-  { href: "#about", label: "히든카이스 소개", current: false },
+  { label: "스토어", current: true },
+  { label: "AI OMR WORK", current: false },
+  { label: "챌린지", current: false },
+  { label: "히든카이스 소개", current: false },
 ] as const;
 
 export function Header() {
   return (
-    <header className="bg-white">
-      <div className="mx-auto flex h-16 w-full max-w-[1160px] items-center justify-between px-5 md:h-[72px] md:px-8">
-        <div className="flex items-center gap-8 md:gap-12">
-          <Link href="/" className="shrink-0" aria-label="HIDDEN KICE 홈">
-            <Image
-              src={LOGO_IMAGE}
-              alt="HIDDEN KICE"
-              width={143}
-              height={18}
-              className="h-[18px] w-auto"
-              priority
-            />
-          </Link>
-          <nav aria-label="주요 메뉴" className="hidden items-center gap-7 md:flex lg:gap-9">
+    <header className="bg-white px-4 py-2.5 shadow-[0px_3px_2px_rgba(0,0,0,0.12)]">
+      <div className="mx-auto flex h-20 w-full max-w-[1280px] items-center justify-between">
+        <div className="flex min-w-0 items-center gap-8 xl:gap-[100px]">
+          <img
+            src={LOGO_IMAGE}
+            alt="HIDDEN KICE"
+            width={142.851}
+            height={17.472}
+          />
+          <nav
+            aria-label="주요 메뉴"
+            className="hidden items-center gap-8 md:flex"
+          >
             {NAV_ITEMS.map((item) => (
-              <Link
+              <span
                 key={item.label}
-                href={item.href}
                 aria-current={item.current ? "page" : undefined}
-                className={`text-[14px] tracking-tight text-[#2b2b2b] transition-colors hover:text-black ${
-                  item.current ? "font-medium" : "font-normal"
+                className={`text-[18px] leading-[1.6] font-semibold whitespace-nowrap ${
+                  item.current ? "text-[#7f77dd]" : "text-[#979ca5]"
                 }`}
               >
                 {item.label}
-              </Link>
+              </span>
             ))}
           </nav>
         </div>
 
-        <div className="flex items-center gap-3 md:gap-4">
-          <IconButton label="장바구니">
-            <CartIcon />
-          </IconButton>
-          <IconButton label="알림">
-            <BellIcon />
-          </IconButton>
-          <IconButton label="프로필">
-            <UserIcon />
-          </IconButton>
+        <div className="flex shrink-0 items-center gap-6">
+          <HeaderIcon label="장바구니" src={ICON_CART} badge="1" badgeLeft="left-3.5" />
+          <HeaderIcon label="알림" src={ICON_BELL} badge="1" badgeLeft="left-[11px]" />
+          <HeaderIcon label="프로필" src={ICON_USER} />
         </div>
       </div>
+
       <nav
         aria-label="모바일 메뉴"
-        className="flex gap-5 overflow-x-auto border-t border-[#f3f3f3] px-5 py-3 text-[13px] md:hidden"
+        className="mx-auto flex w-full max-w-[1280px] gap-6 overflow-x-auto pt-1 md:hidden"
       >
         {NAV_ITEMS.map((item) => (
-          <Link
+          <span
             key={item.label}
-            href={item.href}
             aria-current={item.current ? "page" : undefined}
-            className={`shrink-0 ${item.current ? "font-medium text-[#2b2b2b]" : "text-[#666]"}`}
+            className={`shrink-0 text-[16px] leading-[1.6] font-semibold ${
+              item.current ? "text-[#7f77dd]" : "text-[#979ca5]"
+            }`}
           >
             {item.label}
-          </Link>
+          </span>
         ))}
       </nav>
     </header>
   );
 }
 
-function IconButton({
+function HeaderIcon({
   label,
-  children,
+  src,
+  badge,
+  badgeLeft = "left-3.5",
 }: {
   label: string;
-  children: React.ReactNode;
+  src: string;
+  badge?: string;
+  badgeLeft?: string;
 }) {
   return (
-    <button
-      type="button"
-      aria-label={label}
-      className="flex h-9 w-9 items-center justify-center rounded-full text-[#2b2b2b] transition-colors hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#e45c2d]"
-    >
-      {children}
-    </button>
-  );
-}
-
-function CartIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M6 6h15l-1.5 9h-12z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path d="M6 6 5 3H2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-      <circle cx="9" cy="20" r="1.3" fill="currentColor" />
-      <circle cx="18" cy="20" r="1.3" fill="currentColor" />
-    </svg>
-  );
-}
-
-function BellIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M6 9a6 6 0 1 1 12 0c0 3.5 1.2 5.2 1.8 6H4.2C4.8 14.2 6 12.5 6 9Z"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M10 18a2 2 0 0 0 4 0"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function UserIcon() {
-  return (
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.6" />
-      <path
-        d="M5.5 19.2c.8-3.2 3.4-5 6.5-5s5.7 1.8 6.5 5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-    </svg>
+    <span className="relative block h-6 w-[27px]" aria-label={label} role="img">
+      <img src={src} alt="" width={24} height={24} />
+      {badge ? (
+        <span
+          className={`absolute -top-1.5 flex size-[15px] items-center justify-center rounded-full bg-[#7f77dd] text-[10px] leading-[1.4] font-normal text-white ${badgeLeft}`}
+        >
+          {badge}
+        </span>
+      ) : null}
+    </span>
   );
 }

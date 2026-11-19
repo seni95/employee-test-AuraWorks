@@ -16,11 +16,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="ko"
-      className={`${notoSansKr.variable} h-full antialiased`}
-    >
-      <body className={`${notoSansKr.className} flex min-h-full flex-col`}>
+    <html lang="ko" className={`${notoSansKr.variable} h-full antialiased`}>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+        />
+      </head>
+      <body className="flex min-h-full flex-col font-sans">
         {children}
       </body>
     </html>

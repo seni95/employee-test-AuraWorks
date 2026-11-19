@@ -7,7 +7,7 @@ interface ProductGridProps {
 
 export function ProductGrid({ products }: ProductGridProps) {
   return (
-    <ul className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+    <ul className="grid grid-cols-1 gap-x-6 gap-y-9 sm:grid-cols-2 xl:grid-cols-4 xl:gap-x-[93px]">
       {products.map((product) => (
         <li key={product.id}>
           <ProductCard product={product} />

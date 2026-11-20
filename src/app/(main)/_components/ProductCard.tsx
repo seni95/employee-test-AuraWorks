@@ -21,11 +21,7 @@ export function ProductCard({ product }: ProductCardProps) {
           alt={product.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 250px"
-          className={
-            product.imageUrl || product.type === "pass"
-              ? "object-contain p-6"
-              : "object-cover"
-          }
+          className={product.type === "pass" ? "object-contain" : "object-cover"}
         />
       </div>
 

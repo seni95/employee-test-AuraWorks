@@ -24,16 +24,18 @@ export function ProductToolbar({
         <label htmlFor="product-search" className="sr-only">
           상품 검색
         </label>
-        <img src={ICON_SEARCH} alt="" width={20} height={20} />
-        <input
-          id="product-search"
-          type="search"
-          value={search}
-          onChange={(event) => onSearchChange(event.target.value)}
-          placeholder="검색"
-          autoComplete="off"
-          className="min-w-0 flex-1 bg-transparent text-[16px] leading-[1.6] font-semibold text-[#1c1e21] outline-none placeholder:text-[#979ca5]"
-        />
+        <span className="flex min-w-0 flex-1 items-center gap-1.5">
+          <img src={ICON_SEARCH} alt="" width={20} height={20} />
+          <input
+            id="product-search"
+            type="search"
+            value={search}
+            onChange={(event) => onSearchChange(event.target.value)}
+            placeholder="검색"
+            autoComplete="off"
+            className="min-w-0 flex-1 bg-transparent text-[16px] leading-[1.6] font-semibold text-[#1c1e21] outline-none placeholder:text-[#979ca5]"
+          />
+        </span>
         <button
           type="button"
           onClick={() => onSearchChange("")}

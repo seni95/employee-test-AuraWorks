@@ -70,7 +70,7 @@ function PaginationButton({
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="flex size-10 items-center justify-center rounded-[6px] border border-[#7f77dd] bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7f77dd] disabled:cursor-not-allowed disabled:opacity-40"
+      className="flex size-10 items-center justify-center rounded-[6px] border border-[#7f77dd] bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7f77dd] disabled:cursor-not-allowed"
     >
       {children}
     </button>

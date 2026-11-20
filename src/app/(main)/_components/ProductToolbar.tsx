@@ -20,7 +20,7 @@ export function ProductToolbar({
 }: ProductToolbarProps) {
   return (
     <div className="flex flex-col items-stretch justify-end gap-4 sm:flex-row sm:items-center sm:gap-[17px]">
-      <div className="flex w-full items-center gap-2 rounded-[6px] border border-[#ced0d4] p-2 sm:w-[250px]">
+     <div className="flex h-[42px] w-full items-center gap-2 rounded-[6px] border border-[#ced0d4] px-2 sm:w-[250px]">
         <label htmlFor="product-search" className="sr-only">
           상품 검색
         </label>

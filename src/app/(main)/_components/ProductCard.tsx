@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 import { COVER_PASS_IMAGE, COVER_SINGLE_IMAGE } from "@/lib/assets";
 import { formatPrice } from "@/lib/format";
 import { PRODUCT_TYPE_LABEL, type Product } from "../_types/product";
@@ -12,16 +15,25 @@ export function ProductCard({ product }: ProductCardProps) {
   const typeLabel = PRODUCT_TYPE_LABEL[product.type];
   const fallbackImage =
     product.type === "pass" ? COVER_PASS_IMAGE : COVER_SINGLE_IMAGE;
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const imageFailed = failedSrc !== null && failedSrc === product.imageUrl;
+  const imageSrc =
+    product.imageUrl && !imageFailed ? product.imageUrl : fallbackImage;
 
   return (
     <article className="flex flex-col gap-1">
       <div className="relative aspect-[250/320] overflow-hidden rounded-[6px] border border-[#e9eaec] bg-white">
         <Image
-          src={product.imageUrl ?? fallbackImage}
+          src={imageSrc}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 250px"
           className={product.type === "pass" ? "object-contain" : "object-cover"}
+          onError={() => {
+            if (product.imageUrl) {
+              setFailedSrc(product.imageUrl);
+            }
+          }}
         />
       </div>
 

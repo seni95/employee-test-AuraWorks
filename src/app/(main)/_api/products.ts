@@ -18,12 +18,28 @@ function coverVariantForType(type: ProductType): ProductCoverVariant {
   return type === "pass" ? "pass-set" : "single-green";
 }
 
-function discountRate(originalPrice: number, salePrice: number): number {
-  if (originalPrice <= salePrice) {
+const PRODUCT_IMAGE_BUCKET = "product-images";
+
+function discountRate(originalPrice: number | null, salePrice: number): number {
+  if (originalPrice === null || originalPrice <= salePrice) {
     return 0;
   }
 
   return Math.round(((originalPrice - salePrice) / originalPrice) * 100);
+}
+
+function toProductImageUrl(imagePath: string | null): string | null {
+  const path = imagePath?.trim().replace(/^\/+/, "");
+
+  if (!path) {
+    return null;
+  }
+
+  const { data } = getSupabaseBrowserClient()
+    .storage.from(PRODUCT_IMAGE_BUCKET)
+    .getPublicUrl(path);
+
+  return data.publicUrl || null;
 }
 
 export function mapTextbookToProduct(row: TextbookRow): Product | null {
@@ -32,16 +48,16 @@ export function mapTextbookToProduct(row: TextbookRow): Product | null {
   }
 
   const salePrice = row.price;
-  const originalPrice = row.original_price ?? row.price;
+  const originalPrice = row.original_price;
 
   return {
     id: String(row.id),
     name: row.title,
     type: row.category,
-    originalPrice,
+    originalPrice: originalPrice ?? salePrice,
     salePrice,
     discountRate: discountRate(originalPrice, salePrice),
-    imageUrl: row.image_url,
+    imageUrl: toProductImageUrl(row.image_url),
     coverVariant: coverVariantForType(row.category),
   };
 }
@@ -50,8 +66,10 @@ export async function fetchProducts(): Promise<Product[]> {
   const supabase = getSupabaseBrowserClient();
   const { data, error } = await supabase
     .from("textbooks")
-    .select("id, title, category, price, original_price, image_url, created_at")
-    .order("created_at", { ascending: false });
+    .select(
+      "id, title, category, price, original_price, image_url, created_at",
+    )
+    .order("sort_order", { ascending: true });
 
   if (error) {
     throw new Error(error.message);

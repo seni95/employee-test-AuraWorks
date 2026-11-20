@@ -21,6 +21,34 @@ body {
   font-family: "Pretendard Variable", Pretendard, var(--font-noto-sans-kr), sans-serif;
 }
 
+button:not(:disabled):not([aria-disabled="true"]),
+[role="button"]:not(:disabled):not([aria-disabled="true"]),
+a[href],
+label[for],
+summary,
+select,
+input[type="button"]:not(:disabled):not([aria-disabled="true"]),
+input[type="submit"]:not(:disabled):not([aria-disabled="true"]),
+input[type="reset"]:not(:disabled):not([aria-disabled="true"]),
+input[type="checkbox"]:not(:disabled):not([aria-disabled="true"]),
+input[type="radio"]:not(:disabled):not([aria-disabled="true"]),
+input[type="file"]:not(:disabled):not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
+button:disabled,
+button[aria-disabled="true"],
+[role="button"]:disabled,
+[role="button"][aria-disabled="true"],
+input[type="button"]:disabled,
+input[type="submit"]:disabled,
+input[type="reset"]:disabled,
+input[type="checkbox"]:disabled,
+input[type="radio"]:disabled,
+input[type="file"]:disabled {
+  cursor: not-allowed;
+}
+
 input[type="search"]::-webkit-search-cancel-button {
   appearance: none;
 }
